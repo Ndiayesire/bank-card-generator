@@ -27,7 +27,6 @@ npm run dev
 ```sh
 npm run build
 ```
-## Project Setup
 
 ## Final
 
