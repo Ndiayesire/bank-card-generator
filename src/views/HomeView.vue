@@ -1,69 +1,72 @@
 <template>
-  <div class="bg-gray-50 min-h-screen">
+<div class="bg-gray-50 min-h-screen">
     <h1 class="text-center text-2xl font-semibold tracking-tight pt-3 text-gray-500">BANK CARD GENERATOR</h1>
     <div class="mx-auto container flex flex-col md:flex-row justify-center py-8 md:py-16 px-4">
       <div class="w-full md:w-1/2 pr-4 mb-8 md:mb-0">
-        <div class="flex flex-col  ">
-          <!-- card -->
-          <div class="flex-grow text-white h-60 md:w-96 p-3 rounded-xl shadow transform transition duration-500 hover:scale-110" :style="{ background: selectedColor }">
-            <div class="h-full flex flex-col justify-between mb-2">
-              <div class="flex items-start justify-between space-x-4">
-                <div class="text-xl font-semibold tracking-tight">{{ state.bank }}</div>
-                <div class="inline-flex items-center justify-center" v-if="selectedFile">
-                  <img :src="`/src/assets/${ selectedFile.name}`" class="h-12 rounded">
-                </div>
-              </div>
-              <div class="flex space-x-1">
-                <img src="../assets/nfc.png" class="h-8 w-15 rounded">
-                <div class="inline-block w-12 h-8 bg-gradient-to-tl from-yellow-500 to-yellow-200 rounded-md shadow-inner overflow-hidden">
-                  <div class="relative w-full h-full grid grid-cols-2 gap-1">
-                    <div class="absolute border border-gray-900 rounded w-4 h-6 left-4 top-1"></div>
-                    <div class="border-b border-r border-gray-900 rounded-br"></div>
-                    <div class="border-b border-l border-gray-900 rounded-bl"></div>
-                    <div class=""></div>
-                    <div class=""></div>
-                    <div class="border-t border-r border-gray-900 rounded-tr"></div>
-                    <div class="border-t border-l border-gray-900 rounded-tl"></div>
+        <div class="flex flex-col">
+          <!-- Front card -->
+          <div class="flip-card mb-8 md:mb-0" @mouseover="isFlipped = true" @mouseleave="isFlipped = false" >
+            <div class="flip-card-inner" :class="{ flipped: isFlipped }">
+              <div class="flip-card-front">
+                <div class="flex-grow text-white h-60 md:w-96 p-3 rounded-xl shadow" :style="{ background: selectedColor }">
+                  <div class="h-full flex flex-col justify-between mb-2">
+                    <!-- Front card content here -->
+                    <div class="flex items-start justify-between space-x-4">
+                      <div class="text-xl font-semibold tracking-tight">{{ state.bank }}</div>
+                      <div class="inline-flex items-center justify-center" v-if="selectedFile">
+                        <img :src="`/src/assets/${selectedFile.name}`" class="h-12 rounded shadow">
+                      </div>
+                    </div>
+                    <div class="flex space-x-1">
+                      <img src="../assets/nfc.png" class="h-8 w-15 rounded">
+                      <div class="inline-block w-12 h-8 bg-gradient-to-tl from-yellow-500 to-yellow-200 rounded-md shadow-inner overflow-hidden">
+                        <div class="relative w-full h-full grid grid-cols-2 gap-1">
+                          <div class="absolute border border-gray-900 rounded w-4 h-6 left-4 top-1"></div>
+                          <div class="border-b border-r border-gray-900 rounded-br"></div>
+                          <div class="border-b border-l border-gray-900 rounded-bl"></div>
+                          <div class=""></div>
+                          <div class=""></div>
+                          <div class="border-t border-r border-gray-900 rounded-tr"></div>
+                          <div class="border-t border-l border-gray-900 rounded-tl"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pt-1">
+                      <div class="text-xs font-semibold tracking-tight">Numéro carte</div>
+                      <div class="text-2xl font-mono">{{formattedCardNumber}}</div>
+                    </div>
+                    <div class="flex justify-between">
+                      <div class="">
+                        <div class="text-xs font-semibold tracking-tight">Titulaire de la carte</div>
+                        <div class="text-xl font-semibold">{{state.name}}</div>
+                      </div>
+                      <div class="">
+                        <div class="text-xs font-semibold tracking-tight">Validité</div>
+                        <div class="text-xl font-mono">{{state.validity}}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="pt-1">
-                <div class="text-xs font-semibold tracking-tight">Numéro carte</div>
-                <div class="text-2xl font-mono">{{formattedCardNumber }}</div>
-              </div>
-              <div class="flex justify-between">
-                <div class="">
-                  <div class="text-xs font-semibold tracking-tight">Tiulaire de la carte</div>
-                  <div class="text-xl font-semibold">{{ state.name }}</div>
-                </div>
-                <div class="">
-                  <div class="text-xs font-semibold tracking-tight">Validité</div>
-                  <div class="text-xl font-mono">{{ state.validity }}</div>
+              <div class="flip-card-back">
+                <!-- Back card -->
+                <div class="text-white h-60 md:w-96 p-3 rounded-xl shadow transform transition duration-500 hover:scale-110" :style="{ background: selectedColor }">
+                  <p class="text-xs font-semibold tracking-tight">VOUS AVEZ RAMASSÉ LA CARTE, CONTACTEZ LE SERVICE CLIENT</p>
+                  <div class="bg-black h-9 rounded-md"></div>
+                  <div class="pt-3">
+                    <div class="w-[14rem] bg-gray-200 h-9 rounded">
+                      <h1 class="text-gray-900 text-xl text-right mr-2 pt-1 italic">{{state.cvc}}</h1>
+                    </div>
+                  </div>
+                  <div class="">
+                    <p class="text-xs tracking-tight mb-2">Signature Autorisée</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
-        <div class="flex pt-5">
-            <!--Back card -->
-            <div class="text-white h-60 md:w-96 p-3 rounded-xl shadow transform transition duration-500 hover:scale-110" :style="{ background: selectedColor }">
-              <p class="text-xs font-semibold tracking-tight">VOUS AVEZ RAMASSE LA CARTE CONTACTER LE SERVICE CLIENT</p>
-              <div class="bg-black h-9 rounded-md"></div>
-             <div class="pt-3">
-              <div class="w-[14rem] bg-gray-200 h-9 rounded">
-                <h1 class="text-gray-900 text-xl text-right mr-2 pt-1 italic">{{ state.cvc }}</h1>
-              </div>
-             </div>
-             <div class="">
-                <p class="text-xs tracking-tight mb-2 ">Signature Autorisée</p>
-              </div>
-              
-            </div>
-          </div>
       </div>
-
       <div class="w-full md:w-2/2">
         <div class="w-full max-w-lg mx-auto p-8">
           <div class="bg-white rounded-lg shadow p-6 border">
@@ -168,5 +171,40 @@ const handleFileChange = (event) => {
     selectedFile.value = null;
   }
 };
+const isFlipped = ref(false);
+
 </script>
 
+<style scoped>
+.flip-card {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 300px; /* Adjust the max-width as needed */
+  height: auto;
+  margin: 0 auto;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  /* Add styles for the back of the card */
+}
+</style>
