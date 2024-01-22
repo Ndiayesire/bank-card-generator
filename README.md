@@ -27,3 +27,8 @@ npm run dev
 ```sh
 npm run build
 ```
+## Project Setup
+
+## Final
+
+![Image](https://github.com/Ndiayesire/bank-card-generator/blob/main/src/assets/img/rendu.png)
