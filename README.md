@@ -28,6 +28,6 @@ npm run dev
 npm run build
 ```
 
-## Final
+## Result
 
-![Image](https://github.com/Ndiayesire/bank-card-generator/blob/main/src/assets/img/rendu.png)
+![](https://github.com/Ndiayesire/bank-card-generator/blob/main/src/assets/img/rendu.gif)
